@@ -1,7 +1,7 @@
 PdfCraft Mobile for Android
 ===========================
 
-Version: 0.8.0-wrapper-1
+Version: 0.8.0-wrapper-2
 Package: com.petertroll.pdfcraftmobile
 Minimum Android: 7.0 (API 24)
 Target Android: 14 (API 34)
@@ -20,6 +20,8 @@ Use
 - PdfCraft's own file picker supports secondary PDFs/images for combine and insert workflows.
 - Use PdfCraft's own Save command after editing. Android will always ask for a destination; it never silently overwrites the source PDF.
 - Toolbar Save copy and Share are available after PdfCraft has saved the current changes.
+- If the destination picker is canceled, Android cannot write the destination, or the app is recreated, the exact pending bytes remain in private storage. Use Retry/Export recovery in the displayed dialog, or open toolbar overflow > Save recovery later.
+- Pending transaction bytes are removed only after a successful destination write. A missing/damaged save transaction is reported instead of silently ignored.
 
 Notes
 -----
@@ -30,4 +32,4 @@ Notes
 
 APK SHA-256
 -----------
-c1d25462b70eed1bf3d62b875f02483f8b15130f7ce6e10b5cd261bf32573447
+67981e52af72c96d582ccee60365203c14cab148a52c59565083120539dd4ce1

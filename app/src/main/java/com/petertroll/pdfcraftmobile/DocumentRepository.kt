@@ -23,6 +23,11 @@ class DocumentRepository(private val context: Context) {
     @Volatile var displayName: String = "document.pdf"; private set
     @Volatile private var documentId: String? = null
 
+    init {
+        displayName = prefs.getString("last_name", "document.pdf") ?: "document.pdf"
+        documentId = prefs.getString("last_document_id", null)
+    }
+
 
     /** Imports atomically. A failed import leaves the active document and all recoveries intact. */
     @Synchronized

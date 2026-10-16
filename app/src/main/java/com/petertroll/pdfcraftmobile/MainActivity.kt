@@ -31,37 +31,42 @@ import java.util.concurrent.Executors
 class MainActivity : AppCompatActivity(), LoopbackServer.Listener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var repository: DocumentRepository
+    private lateinit var pendingSaves: PendingSaveStore
     private lateinit var server: LoopbackServer
     private val io = Executors.newSingleThreadExecutor()
     @Volatile private var dirty = false
-    private var pendingCreate: PendingCreate? = null
     private var fileCallback: ValueCallback<Array<Uri>>? = null
-
-    private sealed interface PendingCreate {
-        val name: String
-        data class Upstream(val artifact: SavedArtifact, override val name: String) : PendingCreate
-        data class Export(val snapshot: ExportSnapshot, override val name: String) : PendingCreate
-    }
 
     private val openDocument = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) importDocument(uri, PICKER_GRANTS)
     }
     private val createDocument = registerForActivityResult(ActivityResultContracts.CreateDocument("application/pdf")) { uri ->
-        val pending = pendingCreate.also { pendingCreate = null } ?: return@registerForActivityResult
-        if (uri == null) return@registerForActivityResult toast("Save canceled. The private recovery copy was retained.")
+        val pending = runCatching { pendingSaves.requireActive() }.getOrElse { error ->
+            showMissingSaveState(error)
+            return@registerForActivityResult
+        }
+        if (uri == null) {
+            showPendingSave(pending, "Save canceled. Your private recovery copy is still available.")
+            return@registerForActivityResult
+        }
         io.execute {
             runCatching {
-                when (pending) {
-                    is PendingCreate.Upstream -> repository.adoptSavedDestination(pending.artifact, uri, PICKER_GRANTS)
-                    is PendingCreate.Export -> contentResolver.openOutputStream(uri, "wt").use { output ->
+                when (pending.mode) {
+                    PendingSaveMode.ADOPT -> repository.adoptSavedDestination(
+                        SavedArtifact(pending.documentId, pending.payload, pending.name), uri, PICKER_GRANTS
+                    )
+                    PendingSaveMode.EXPORT -> contentResolver.openOutputStream(uri, "wt").use { output ->
                         requireNotNull(output) { "Provider refused output" }
-                        pending.snapshot.file.inputStream().use { it.copyTo(output) }
+                        pending.payload.inputStream().use { it.copyTo(output) }
                     }
                 }
+                pendingSaves.complete(pending.id)
             }.onSuccess { runOnUiThread {
-                if (pending is PendingCreate.Upstream) binding.toolbar.subtitle = repository.displayName
+                if (pending.mode == PendingSaveMode.ADOPT) binding.toolbar.subtitle = repository.displayName
                 toast("PDF saved")
-            } }.onFailure { e -> runOnUiThread { showError("Could not save: ${e.message}. Recovery was retained.") } }
+            } }.onFailure { e -> runOnUiThread {
+                showPendingSave(pending, "Could not save: ${e.message}. Your private recovery copy was retained.")
+            } }
         }
     }
     private val chooseWebFiles = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -73,6 +78,7 @@ class MainActivity : AppCompatActivity(), LoopbackServer.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater); setContentView(binding.root)
         repository = DocumentRepository(this)
+        pendingSaves = PendingSaveStore(filesDir)
         server = LoopbackServer(this, repository, this).also { it.start() }
         configureToolbar(); configureWebView()
         binding.retryButton.setOnClickListener { guarded("reload") { reloadPage() } }
@@ -97,6 +103,7 @@ class MainActivity : AppCompatActivity(), LoopbackServer.Listener {
             when (item.itemId) {
                 R.id.action_open -> guarded("open another PDF") { openDocument.launch(arrayOf("application/pdf")) }
                 R.id.action_export -> exportLatest()
+                R.id.action_recovery -> openRecoveryActions()
                 R.id.action_share -> shareLatest()
                 R.id.action_reload -> guarded("reload") { reloadPage() }
                 R.id.action_about -> showAbout()
@@ -183,7 +190,7 @@ class MainActivity : AppCompatActivity(), LoopbackServer.Listener {
             if (!repository.isActive(artifact)) return@runOnUiThread showError("Save retained as recovery for the previous document; it was not routed to the current document.")
             dirty = false
             val route = SaveRouter.decide()
-            if (route == SaveRoute.ORIGINAL) writeOriginal(artifact) else launchCreate(PendingCreate.Upstream(artifact, artifact.name))
+            if (route == SaveRoute.ORIGINAL) writeOriginal(artifact) else beginCreate(artifact.file, artifact.name, PendingSaveMode.ADOPT, artifact.documentId)
         }
     }
 
@@ -193,7 +200,7 @@ class MainActivity : AppCompatActivity(), LoopbackServer.Listener {
             .onSuccess { runOnUiThread { toast("Saved to original document") } }
             .onFailure { e -> runOnUiThread {
                 showError("Original could not be written: ${e.message}. Choose a destination; recovery was retained.")
-                launchCreate(PendingCreate.Upstream(artifact, artifact.name))
+                beginCreate(artifact.file, artifact.name, PendingSaveMode.ADOPT, artifact.documentId)
             } }
     }
 
@@ -203,7 +210,8 @@ class MainActivity : AppCompatActivity(), LoopbackServer.Listener {
             when (event.optString("type")) {
                 "pdfcraft:ready" -> {
                     binding.statusPanel.visibility = View.GONE
-                    binding.toolbar.subtitle = repository.displayName + if (repository.hasPendingRecovery()) " • recovery retained" else ""
+                    val retained = repository.hasPendingRecovery() || pendingSaves.hasPendingRecord()
+                    binding.toolbar.subtitle = repository.displayName + if (retained) " • save recovery available" else ""
                 }
                 "pdfcraft:dirty" -> dirty = event.optBoolean("dirty")
                 "pdfcraft:failed" -> showFatal(event.optString("error", "PdfCraft could not start"))
@@ -217,15 +225,60 @@ class MainActivity : AppCompatActivity(), LoopbackServer.Listener {
             val result = runCatching { repository.latestForExport() }
             runOnUiThread {
                 result.onSuccess { snapshot ->
-                    if (snapshot == null) toast("Open a PDF first") else launchCreate(PendingCreate.Export(snapshot, snapshot.name))
+                    if (snapshot == null) toast("Open a PDF first")
+                    else beginCreate(snapshot.file, snapshot.name, PendingSaveMode.EXPORT, snapshot.documentId)
                 }.onFailure { showError("Could not prepare PDF: ${it.message}") }
             }
         }
     }
 
-    private fun launchCreate(pending: PendingCreate) {
-        pendingCreate = pending
+    private fun beginCreate(source: File, name: String, mode: PendingSaveMode, documentId: String) {
+        io.execute {
+            val result = runCatching { pendingSaves.begin(source, name, mode, documentId) }
+            runOnUiThread {
+                result.onSuccess(::launchCreate).onFailure {
+                    val existing = runCatching { pendingSaves.requireActive() }.getOrNull()
+                    if (existing != null) showPendingSave(existing, "Finish or export the earlier recovered save first.")
+                    else showError("Could not retain save recovery: ${it.message}")
+                }
+            }
+        }
+    }
+
+    private fun launchCreate(pending: PendingSaveTransaction) {
         createDocument.launch(FilenameUtil.sanitize(pending.name))
+    }
+
+    private fun openRecoveryActions() {
+        runCatching { pendingSaves.requireActive() }
+            .onSuccess { showPendingSave(it, "A save is waiting for a destination. The recovery bytes are stored privately.") }
+            .onFailure {
+                if (pendingSaves.hasPendingRecord()) showMissingSaveState(it)
+                else toast("No unfinished save recovery is available")
+            }
+    }
+
+    private fun showPendingSave(pending: PendingSaveTransaction, message: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Save not completed")
+            .setMessage(message)
+            .setNegativeButton("Keep recovery", null)
+            .setPositiveButton("Retry") { _, _ ->
+                runCatching { pendingSaves.changeMode(pending.id, pending.mode) }
+                    .onSuccess(::launchCreate).onFailure { showMissingSaveState(it) }
+            }
+            .setNeutralButton("Export recovery") { _, _ ->
+                runCatching { pendingSaves.changeMode(pending.id, PendingSaveMode.EXPORT) }
+                    .onSuccess(::launchCreate).onFailure { showMissingSaveState(it) }
+            }.show()
+    }
+
+    private fun showMissingSaveState(error: Throwable) {
+        AlertDialog.Builder(this)
+            .setTitle("Save could not continue")
+            .setMessage("Android returned a save result, but its recovery transaction is missing or damaged. No source document was overwritten. ${error.message.orEmpty()}")
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun shareLatest() {

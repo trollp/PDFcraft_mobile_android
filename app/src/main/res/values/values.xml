@@ -3,6 +3,7 @@
     <string name="loading">Starting PdfCraft…</string>
     <string name="action_open">Open</string>
     <string name="action_save_copy">Save copy</string>
+    <string name="action_recovery">Save recovery</string>
     <string name="action_share">Share</string>
     <string name="action_reload">Reload</string>
     <string name="action_about">About &amp; licenses</string>
