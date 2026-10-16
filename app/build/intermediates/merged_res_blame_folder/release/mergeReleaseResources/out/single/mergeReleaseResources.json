@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/layout_activity_main.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/mipmap-anydpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/xml_network_security_config.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/xml_file_paths.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/xml/file_paths.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/menu_main_menu.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/menu/main_menu.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/mipmap-anydpi-v33/ic_launcher.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/xml_data_extraction_rules.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-release-35:/drawable_ic_launcher_monochrome.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-36:/drawable/ic_launcher_monochrome.xml"
+    }
+]

@@ -1,0 +1,26 @@
+<lint-module
+    format="1"
+    dir="/home/troll/pdfcraft-android/app"
+    name=":app"
+    type="APP"
+    maven="PdfCraftMobile:app:unspecified"
+    agpVersion="8.5.2"
+    buildFolder="build"
+    bootClassPath="/home/troll/Android/Sdk/platforms/android-34/android.jar:/home/troll/Android/Sdk/build-tools/34.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      disable="GradleDependency"
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true">
+    <severities>
+      <severity
+        id="GradleDependency"
+        severity="IGNORE" />
+    </severities>
+  </lintOptions>
+  <variant name="debug"/>
+</lint-module>

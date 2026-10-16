@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/drawable_ic_launcher_monochrome.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/drawable/ic_launcher_monochrome.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/mipmap-anydpi-v33/ic_launcher.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/layout_activity_main.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/menu_main_menu.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/menu/main_menu.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/mipmap-anydpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/xml_network_security_config.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/xml_data_extraction_rules.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.petertroll.pdfcraftmobile.app-debug-35:/xml_file_paths.xml.flat",
+        "source": "com.petertroll.pdfcraftmobile.app-main-37:/xml/file_paths.xml"
+    }
+]

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.5.2" type="partial_results">
+    <map id="UnsafeIntentLaunch">
+            <map id="unprotected">
+                <entry
+                    name="com.petertroll.pdfcraftmobile.MainActivity"
+                    boolean="true"/>
+            </map>
+    </map>
+    <map id="UnsafeImplicitIntentLaunch">
+            <map id="actionsSent">
+                    <map id="android.intent.action.VIEW (used to start an activity)">
+                        <location id="0"
+                            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/petertroll/pdfcraftmobile/MainActivity.kt"
+                            line="146"
+                            column="45"
+                            startOffset="7579"
+                            endLine="146"
+                            endColumn="74"
+                            endOffset="7608"/>
+                        <location id="1"
+                            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/petertroll/pdfcraftmobile/MainActivity.kt"
+                            line="146"
+                            column="45"
+                            startOffset="7579"
+                            endLine="146"
+                            endColumn="74"
+                            endOffset="7608"/>
+                    </map>
+            </map>
+    </map>
+    <map id="UnusedResources">
+        <entry
+            name="model"
+            string="attr[actionBarSize(R)],drawable[ic_launcher_background(U),ic_launcher_foreground(U),ic_launcher_monochrome(U)],id[root(U),toolbar(U),webView(U),statusPanel(U),progress(U),statusText(U),retryButton(U),action_open(U),action_export(U),action_share(U),action_reload(U),action_about(U)],layout[activity_main(U)],menu[main_menu(U)],mipmap[ic_launcher(U)],string[app_name(U),loading(U),action_reload(U),action_open(U),action_save_copy(U),action_share(U),action_about(U)],style[Theme_PdfCraftMobile(U),Theme_MaterialComponents_DayNight_NoActionBar(R)],xml[data_extraction_rules(U),network_security_config(U),file_paths(U)];10^0^11^14^15,11^16^17^18^15^19,12^1^2^3,1a^1b;;;"/>
+    </map>
+
+</incidents>

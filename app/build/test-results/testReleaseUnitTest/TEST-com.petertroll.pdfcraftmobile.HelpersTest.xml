@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.petertroll.pdfcraftmobile.HelpersTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-16T21:31:12" hostname="troll-NUC8i7BEK" time="0.373">
+  <properties/>
+  <testcase name="routesSaves" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.022"/>
+  <testcase name="normalizesTargetsAndDropsQuery" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.182"/>
+  <testcase name="normalizesBrowserAcceptFiltersForAndroidPicker" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.011"/>
+  <testcase name="mapsCriticalMimeTypes" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.002"/>
+  <testcase name="validatesPdfHeaderWithAllowedPrefix" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.072"/>
+  <testcase name="sanitizesFilenames" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.028"/>
+  <testcase name="mapsPublicAssetPathToPackagedDirectory" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.002"/>
+  <testcase name="recoveryMustBelongToActiveDocument" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.002"/>
+  <testcase name="rejectsTraversalAndMalformedTargets" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.001"/>
+  <testcase name="hostPageContainsProtocolAndBinaryTransport" classname="com.petertroll.pdfcraftmobile.HelpersTest" time="0.035"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

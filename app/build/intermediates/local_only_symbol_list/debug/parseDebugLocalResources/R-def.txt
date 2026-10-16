@@ -1,0 +1,31 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable ic_launcher_monochrome
+id action_about
+id action_export
+id action_open
+id action_reload
+id action_share
+id progress
+id retryButton
+id root
+id statusPanel
+id statusText
+id toolbar
+id webView
+layout activity_main
+menu main_menu
+mipmap ic_launcher
+string action_about
+string action_open
+string action_reload
+string action_save_copy
+string action_share
+string app_name
+string loading
+style Theme.PdfCraftMobile
+xml data_extraction_rules
+xml file_paths
+xml network_security_config

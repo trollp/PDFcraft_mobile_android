@@ -1,0 +1,33 @@
+PdfCraft Mobile for Android
+===========================
+
+Version: 0.8.0-wrapper-1
+Package: com.petertroll.pdfcraftmobile
+Minimum Android: 7.0 (API 24)
+Target Android: 14 (API 34)
+
+Install
+-------
+1. Copy the APK to your Android phone.
+2. Open it from Files/Downloads.
+3. If prompted, allow that file manager to install unknown apps.
+4. Tap Install.
+
+Use
+---
+- Use the Android toolbar's Open command, Android's “Open with”, or PdfCraft's own Open command.
+- PdfCraft runs locally/offline inside the app.
+- PdfCraft's own file picker supports secondary PDFs/images for combine and insert workflows.
+- Use PdfCraft's own Save command after editing. Android will always ask for a destination; it never silently overwrites the source PDF.
+- Toolbar Save copy and Share are available after PdfCraft has saved the current changes.
+
+Notes
+-----
+- This is an unofficial Android wrapper around the unmodified upstream PdfCraft 0.8.0 WebAssembly release.
+- The editor UI is desktop-oriented, so landscape mode can be more comfortable on a phone.
+- Imported documents and save transfers are limited to 100 MiB.
+- No physical Android device or emulator was attached during the server-side build, so the APK has not yet had a hardware tap-through test.
+
+APK SHA-256
+-----------
+c1d25462b70eed1bf3d62b875f02483f8b15130f7ce6e10b5cd261bf32573447

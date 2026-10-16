@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PdfCraft Mobile</string>
+    <string name="loading">Starting PdfCraft…</string>
+    <string name="action_open">Open</string>
+    <string name="action_save_copy">Save copy</string>
+    <string name="action_share">Share</string>
+    <string name="action_reload">Reload</string>
+    <string name="action_about">About &amp; licenses</string>
+    <style name="Theme.PdfCraftMobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#315A9B</item>
+        <item name="colorPrimaryVariant">#233F6D</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>
