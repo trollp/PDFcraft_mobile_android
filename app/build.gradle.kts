@@ -10,8 +10,8 @@ android {
         applicationId = "com.petertroll.pdfcraftmobile"
         minSdk = 24
         targetSdk = 34
-        versionCode = 2
-        versionName = "0.8.0-wrapper-2"
+        versionCode = 3
+        versionName = "0.8.0-touch-3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

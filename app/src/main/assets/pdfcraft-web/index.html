@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>PdfCraft</title>
     
 <script type="module">
-import init, * as bindings from './pdfcraft-web-2e8fa69ba6b1231a.js';
-const wasm = await init({ module_or_path: './pdfcraft-web-2e8fa69ba6b1231a_bg.wasm' });
+import init, * as bindings from './pdfcraft-web-5637251f0e72a043.js';
+const wasm = await init({ module_or_path: './pdfcraft-web-5637251f0e72a043_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -17,11 +17,22 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script>
     <style>
-      html, body { margin: 0; height: 100%; overflow: hidden; background: #f1f1f3; }
-      canvas { width: 100%; height: 100%; display: block; outline: none; }
+      html, body { margin: 0; overflow: hidden; overscroll-behavior: none; background: #f1f1f3; }
+      html { width: 100%; height: 100%; height: 100dvh; }
+      body {
+        position: fixed;
+        top: env(safe-area-inset-top, 0px);
+        right: env(safe-area-inset-right, 0px);
+        bottom: env(safe-area-inset-bottom, 0px);
+        left: env(safe-area-inset-left, 0px);
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      canvas { width: 100%; height: 100%; display: block; outline: none; touch-action: none; }
       @media (prefers-color-scheme: dark) { html, body { background: #19191c; } }
     </style>
-  <link rel="modulepreload" href="./pdfcraft-web-2e8fa69ba6b1231a.js" crossorigin="anonymous" integrity="sha384-EN+HnNv8TG8OLplJXX65C1hrNGvU1wcB3GcJwRnZhmZpzFcYFfUvfE6vaHFrpRnR"><link rel="preload" href="./pdfcraft-web-2e8fa69ba6b1231a_bg.wasm" crossorigin="anonymous" integrity="sha384-4z7awHzy/nbWQJYjcZTnJusQwa9FJYcVJ9jqMhnvLAuw/QfoGUA/pXndCs+7p6bv" as="fetch" type="application/wasm"></head>
+  <link rel="modulepreload" href="./pdfcraft-web-5637251f0e72a043.js" crossorigin="anonymous" integrity="sha384-2XncSQBH2j6I1lbppBCRK0tY+bVgR2sJxUHLvfF8X7hjoLxY4m7kX3m7fkq1aex6"><link rel="preload" href="./pdfcraft-web-5637251f0e72a043_bg.wasm" crossorigin="anonymous" integrity="sha384-Z6xa+u0RSq6NBhvaw/IAVt6CVOtt3ai9sCkQ96z/QL000TbrO5gzPv/YtidNwm1L" as="fetch" type="application/wasm"></head>
   <body>
     <canvas id="pdfcraft"></canvas>
   </body>

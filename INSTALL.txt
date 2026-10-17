@@ -1,7 +1,7 @@
 PdfCraft Mobile for Android
 ===========================
 
-Version: 0.8.0-wrapper-2
+Version: 0.8.0-touch-3
 Package: com.petertroll.pdfcraftmobile
 Minimum Android: 7.0 (API 24)
 Target Android: 14 (API 34)
@@ -25,11 +25,11 @@ Use
 
 Notes
 -----
-- This is an unofficial Android wrapper around the unmodified upstream PdfCraft 0.8.0 WebAssembly release.
-- The editor UI is desktop-oriented, so landscape mode can be more comfortable on a phone.
+- This is an unofficial Android wrapper around PdfCraft 0.8.0 with a responsive touch UI adaptation.
+- The editor adapts its controls for phones and tablets; landscape can still be useful for complex documents.
 - Imported documents and save transfers are limited to 100 MiB.
 - No physical Android device or emulator was attached during the server-side build, so the APK has not yet had a hardware tap-through test.
 
 APK SHA-256
 -----------
-67981e52af72c96d582ccee60365203c14cab148a52c59565083120539dd4ce1
+See the checksum delivered alongside this build.

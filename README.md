@@ -1,6 +1,6 @@
 # PdfCraft Mobile
 
-PdfCraft Mobile is an **unofficial Android wrapper** around the unmodified open-source PdfCraft 0.8.0 WebAssembly release. It is not an official ArtCraft Team product.
+PdfCraft Mobile is an **unofficial Android wrapper** around the open-source PdfCraft 0.8.0 WebAssembly application. This build includes a responsive, touch-first UI adaptation maintained on the `mobile-touch-ui` source branch. It is not an official ArtCraft Team product.
 
 ## Architecture
 
@@ -32,9 +32,9 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ## Provenance
 
 - Upstream: https://github.com/storytold/pdfcraft
-- Bundled release: PdfCraft web 0.8.0
-- Original release archive (not packaged in the APK): `third_party/pdfcraft-web-0.8.0.zip`
-- SHA-256: `1f9ea51f3c1f71cc719c12814e10f236912fa41ef54a7782c7dd4a619d9eee9a`
+- Bundled application: PdfCraft web 0.8.0 with the local responsive touch UI adaptation.
+- Original upstream release archive (retained for provenance, not packaged in the APK): `third_party/pdfcraft-web-0.8.0.zip`
+- Original upstream archive SHA-256: `1f9ea51f3c1f71cc719c12814e10f236912fa41ef54a7782c7dd4a619d9eee9a`
 - License texts and NOTICE are bundled from the upstream release and available in About.
 - The launcher icon is contributor-original simple vector artwork and does not use Adobe or ArtCraft branding.
 
@@ -44,7 +44,7 @@ The wrapper makes no network request for editing and does not upload documents. 
 
 ## Known limits
 
-- PdfCraft's upstream interface is a desktop-style canvas UI; small-screen ergonomics depend on that upstream UI.
+- The responsive touch shell is new and still requires physical-device tap-through validation across different Android WebView/GPU combinations.
 - WebView/WebGL support varies by Android System WebView and GPU/driver.
 - Large PDFs and the WebAssembly runtime can exceed memory limits on low-memory devices; this wrapper limits document transfer to 100 MiB.
 - Upstream PdfCraft 0.8.0 has no host command to request serialization. While PdfCraft reports unsaved changes, toolbar **Save copy** and **Share** refuse with an instruction to use PdfCraft's own Save first; this prevents exporting stale bytes. The upstream bridge still creates an `ArrayBuffer` before its save POST, while Android receives that POST as a stream.
